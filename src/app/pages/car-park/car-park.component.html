@@ -1,0 +1,10 @@
+<p>car-park works!</p>
+<div *ngIf="role === 'admin'; else customerRole">
+  <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_admin"></app-custom-table>
+</div>
+<ng-template #customerRole>
+  <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_customer"></app-custom-table>
+</ng-template>
+
+<!--Add Button redirect to insert form-->
+<a routerLink="/homepage"> Add new</a>

@@ -1,0 +1,11 @@
+<p>custom-form works!</p>
+
+<form #customform="ngForm">
+  <div  *ngFor="let camp of formCamp">
+    <input type="text" id="{{camp}}" placeholder="{{camp}}" >
+  </div>
+
+  <button type="submit" > Save  </button>
+</form>
+
+{{customform.value | json}}
