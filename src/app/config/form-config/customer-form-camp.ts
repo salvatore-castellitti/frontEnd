@@ -7,7 +7,7 @@ export var vehicleFormCamp = {
 }
 
 export var reservationFormCamp = {
-  idData: ["startDate", "endDate", "vehicle"]
+  idData: ["startDate", "endDate"]
 }
 /*vehicle separato, solo date, e poi dopo co ngif mostarre la select dei veicoli
 * quando premi il bottone, in form component, passa i valori

@@ -8,6 +8,8 @@ import {Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
 import {CustomerService} from "../../services/customer.service";
 import {ReservationService} from "../../services/reservation.service";
+import {Vehicle} from "../../modules/vehicle";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -22,25 +24,37 @@ export class FormAddComponent implements OnInit {
 
   //definire cariabile tipo per
   typeForm = history.state.type;
+  controlDate: boolean;
 
   customerFormCamp = customerFormCamp;
   vehicleFormCamp = vehicleFormCamp;
   reservationFormCamp = reservationFormCamp;
 
   model: any = {};
+  vehicles: Vehicle[] = []
+
+  chosenCar: any;
+  selectedStartDate
+  selectedEndDate
+  selectedId
 
   constructor(private vehicleService: VehicleService,
               private customerService: CustomerService,
               private reservationService: ReservationService,
               private router: Router,
-              private data: DataService) { }
+              private data: DataService,
+              public datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.data.currentModel.subscribe(model => this.model = model)
+    this.data.currentModel.subscribe(model => this.model = model);
+    this.selectedId = this.model.id;
   }
 
   receiveFormCompiled($event){
-    this.model = $event;
+    if ($event != null){
+      this.model = $event;
+    }
+
     switch (this.typeForm){
       case 'vehicle':
         //serviceVehicle
@@ -54,8 +68,14 @@ export class FormAddComponent implements OnInit {
         break;
       case 'reservation':
         //Check delle date, torna al form con variabili per i veicoli easy
-        this.addReservation();
-        this.router.navigateByUrl('/reservations');
+        if(this.controlDate){
+          console.log(this.selectedEndDate)
+          this.addReservation();
+          this.router.navigateByUrl('/reservations');
+
+        }else{
+          this.checkDate();
+        }
     }
   }
 
@@ -75,8 +95,35 @@ export class FormAddComponent implements OnInit {
     if(this.role == 'customer'){
       this.model.customer = this.idUser;
     }
+    this.model.startDate = this.selectedStartDate
+    this.model.endDate = this.selectedEndDate
+
+    this.model.vehicle = this.chosenCar
+
+    this.model.id = this.selectedId
+
     this.reservationService.addReservation(this.model).subscribe(response => {
       console.log(response)
     })
+  }
+
+  checkDate(){
+    this.controlDate = false
+    const formatStartDate = this.model.startDate.replace(/(\d+[/])(\d+[/])/, '$2$1');
+    const formatEndDate = this.model.startDate.replace(/(\d+[/])(\d+[/])/, '$2$1');
+    const startDate = new Date(formatStartDate)
+    const endDate = new Date(formatEndDate)
+    this.selectedStartDate = this.model.startDate
+    this.selectedEndDate = this.model.endDate
+    if(startDate <= endDate){
+      this.controlDate = true
+      this.getVehicles();
+      this.router.navigate(['/form-add']);
+    }
+  }
+
+  getVehicles(): void {
+    this.vehicleService.getVehicles()
+      .subscribe(vehicles => this.vehicles = vehicles);
   }
 }

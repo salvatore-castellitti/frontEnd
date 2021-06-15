@@ -7,7 +7,22 @@
   </div>
 </ng-template>
 <ng-template #reservationForm>
-  <div *ngIf="typeForm==='reservation'">
+  <div *ngIf="typeForm==='reservation' && !controlDate">
     <app-custom-form [formConfig]="reservationFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
+  <div *ngIf="controlDate" class="d-flex flex-row justify-content-center">
+    Chosen Start Date: {{selectedStartDate}}<br>
+    Chosen End Date: {{selectedEndDate}}<br>
+    <div class="d-flex flex-row justify-content-center">
+      <select [(ngModel)]="chosenCar">
+        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+          {{vehicle.houseProducer}} {{vehicle.model}}
+        </option>
+      </select>
+      <button class="btn-warning" (click)="receiveFormCompiled($event)" >Add</button>
+    </div>
+  </div>
 </ng-template>
+
+{{typeForm}}
+{{controlDate}}

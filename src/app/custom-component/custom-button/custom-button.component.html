@@ -1,9 +1,15 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
-<div id="button">
-  <button type="button" class="{{buttonConfig.customCssClass}}" (click)="clickedButton($event)">
+<div id="button" *ngIf="buttonConfig.text == 'Delete'; else otherButton">
+  <button type="button" class="{{buttonConfig.customCssClass}}" (click)="clickedButton($event)" onclick="alert('Are You sure')">
    <span class="material-icons">{{buttonConfig.icon}}</span>
     {{buttonConfig.text}}
   </button>
 </div>
+<ng-template #otherButton>
+  <button type="button" class="{{buttonConfig.customCssClass}}" (click)="clickedButton($event)">
+    <span class="material-icons">{{buttonConfig.icon}}</span>
+    {{buttonConfig.text}}
+  </button>
+</ng-template>

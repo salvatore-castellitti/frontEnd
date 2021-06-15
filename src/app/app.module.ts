@@ -18,6 +18,7 @@ import { CustomFormComponent } from './custom-component/custom-form/custom-form.
 import { FormAddComponent } from './pages/form-add/form-add.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
     NgbModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
