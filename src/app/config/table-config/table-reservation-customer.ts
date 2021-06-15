@@ -10,33 +10,26 @@ let order = {
 }
 
 let search = {
-  columns: ["id", "customer", "startDate", "endDate", "vehicle"]
+  columns: ["startDate", "endDate", "vehicle"]
 }
 
 let deleteButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-danger btn-sm',
   text: 'Delete',
   icon: 'delete',
 }
 
 let updateButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-primary btn-sm',
   text: 'Update',
   icon: 'settings',
 }
 
-let approveButton = {
-  customCssClass: null,
-  text: 'Approve',
-  icon: 'done',
-}
 
-let actions = [updateButton,deleteButton, approveButton]
+let actions = [updateButton,deleteButton]
 
-export var tableConfig_Reservation = {
+export var tableConfig_Reservation_Customer = {
   headers: [
-    {key: "id", label: "Id",},
-    {key: "customer", label: "Customer",},
     {key: "startDate", label: "Start Date",},
     {key: "endDate", label: "End Date",},
     {key: "vehicle", label: "Vehicle",},

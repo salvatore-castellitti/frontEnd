@@ -1,9 +1,10 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {tableConfig, TableCustomer} from "../../config/table-config/table-customer";
-import {Hero} from "../../modules/hero";
-import {HeroService} from "../../services/hero.service";
 import {Customer} from "../../modules/customer";
 import {CustomerService} from "../../services/customer.service";
+import {Vehicle} from "../../modules/vehicle";
+import {Data, Router} from "@angular/router";
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-admin-homepage',
@@ -12,44 +13,43 @@ import {CustomerService} from "../../services/customer.service";
 })
 export class AdminHomepageComponent implements OnInit {
 
+  role = window.localStorage.getItem('role');
   @Output() actionEvent = new EventEmitter<any>();
-  heroes: Hero[] = [];
   customers: Customer[] = [];
   tablesConfig = tableConfig;
-  all:any;
 
-  constructor(private heroService: HeroService,
-              private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService,
+              private data: DataService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.getHeroes();
-    this.getCustomers();
+        this.getCustomers();
   }
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
-  }
   getCustomers(): void {
     this.customerService.getCustomers()
       .subscribe(customers => this.customers = customers);
   }
 
-  getAction(action: any[]){
-    // this.actionEvent.emit(action);
-    console.log("FROM ADMIN")
-    console.log(action[1].id)
-
-    //insert CRUD Here
-    switch (action[0].toLowerCase()){
-      case "delete":
-        console.log("Ypu are here");
+  getAction(action: any[]) {
+    let actionCrud = action[0];
+    let customer = action[1];
+    switch (actionCrud){
+      case 'Delete':
+        this.removeCustomer(customer)
         break;
-
-      case "update":
+      case 'Update':
+        console.log(customer)
+        this.data.changeModelValue(customer);
+        this.router.navigate(['/form-add'], { state: {type: 'customer'} });
         break;
-
     }
+  }
+
+  removeCustomer(vehicle: Vehicle){
+    const id = vehicle.id;
+    this.customerService.deleteCustomer(id).subscribe(vehicle => console.log(vehicle))
+    this.getCustomers()
   }
 
 }

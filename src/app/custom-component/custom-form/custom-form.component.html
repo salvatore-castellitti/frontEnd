@@ -1,11 +1,14 @@
-<p>custom-form works!</p>
-
+<div class="d-flex flex-row justify-content-center">
 <form #customform="ngForm">
-  <div  *ngFor="let camp of formCamp">
-    <input type="text" id="{{camp}}" placeholder="{{camp}}" >
+  <div *ngFor="let camp of formConfig.idData" class="form-group">
+    <label for="{{camp}}">{{camp}}</label>
+    <br>
+<div class="col-xs-4">
+  <input type="text" name="{{camp}}" id="{{camp}}" [(ngModel)]="model[camp]" placeholder="{{camp}}" >
+</div>
   </div>
-
-  <button type="submit" > Save  </button>
+  <div class="d-flex flex-row justify-content-center">
+    <button class="btn-warning" type="submit" (click)="submit()" > Save  </button>
+  </div>
 </form>
-
-{{customform.value | json}}
+</div>

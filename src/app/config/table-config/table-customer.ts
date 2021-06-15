@@ -27,13 +27,13 @@ let search = {
 }
 
 let deleteButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-danger btn-sm',
   text: 'Delete',
   icon: 'delete',
 }
 
 let updateButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-primary btn-sm',
   text: 'Update',
   icon: 'settings',
 }

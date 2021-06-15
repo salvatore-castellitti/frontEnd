@@ -1,0 +1,13 @@
+<div *ngIf="typeForm==='vehicle'; else customerForm">
+  <app-custom-form [formConfig]="vehicleFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"> </app-custom-form>
+</div>
+<ng-template #customerForm>
+  <div *ngIf="typeForm==='customer'; else reservationForm">
+    <app-custom-form [formConfig]="customerFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
+  </div>
+</ng-template>
+<ng-template #reservationForm>
+  <div *ngIf="typeForm==='reservation'">
+    <app-custom-form [formConfig]="reservationFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
+  </div>
+</ng-template>

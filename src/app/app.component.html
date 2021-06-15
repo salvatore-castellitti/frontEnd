@@ -1,9 +1,21 @@
-<h1>{{title}}</h1>
+<br><br><br>
+<div class="d-flex flex-row justify-content-center">
 <nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/heroes"> Heroes</a>
+  <ng-container *ngIf="role==='admin'; else roleCustomer">
+    <a routerLink="/homepage"> HomePage</a>
+    <a routerLink="/reservations"> Reservations </a>
+  </ng-container>
+
+  <ng-template #roleCustomer>
+    <a routerLink="/homepage-customer"> HomePage</a>
+  </ng-template>
+
   <a routerLink="/carPark"> Car Park</a>
-  <a routerLink="/homepage"> HomePage</a>
+  <a (click)="getProfile()"> Profile</a>
 </nav>
+  </div>
+<br>
+<br>
 <router-outlet></router-outlet>
-<app-messages></app-messages>
+
+

@@ -3,5 +3,5 @@ export interface Vehicle{
   type: string,
   model:string,
   houseProducer: string,
-  taxCode: string,
+  licensePlate: string,
 }

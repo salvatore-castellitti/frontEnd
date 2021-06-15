@@ -1,0 +1,15 @@
+<ng-container *ngIf="role === 'admin'">
+  <app-custom-table [tableConfig]="tableConfig" [data]="reservations" (actionEvent)="getAction($event)"></app-custom-table>
+</ng-container>
+<ng-container *ngIf="role === 'customer'">
+  <app-custom-table [tableConfig]="tableConfig_Customer" [data]="reservations" (actionEvent)="getAction($event)"></app-custom-table>
+  <br>
+  <div class="d-flex flex-row justify-content-center">
+
+  <button class="btn-warning" [routerLink]="'/form-add'" [state]="{type:'reservation'}">Add New Reservation</button>
+  </div>
+</ng-container>
+
+
+
+

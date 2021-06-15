@@ -1,17 +1,22 @@
 <!--MySearch Filter-->
-Filter:
-<div>
-  <select [(ngModel)]="searchCol">
-    <option  *ngFor="let searchColumn of tableConfig.search.columns" >{{searchColumn}}</option>
-  </select>
-  <input type="text" [(ngModel)]="searchValue" id="search">
+
+<div class="container-sm d-flex justify-content-center">
+<h3>Filter:  </h3>
+  <div class="col-xs-4">
+    <select [(ngModel)]="searchCol" class="form-control form-control-sm">
+      <option  *ngFor="let searchColumn of tableConfig.search.columns" >{{searchColumn}}</option>
+    </select>
+  </div>
+<div class="col-xs-3">
+  <input type="text" class="form-control form-control-sm" [(ngModel)]="searchValue" id="search">
+</div>
 </div>
 
-<div>
-  <table border="1px">
+<div class="container-sm d-flex justify-content-center">
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th class="tableHeader" *ngFor="let header of tableConfig.headers" (click)="sort(header.key, tableConfig.order.orderType)">
+        <th scope="col" class="tableHeader" *ngFor="let header of tableConfig.headers" (click)="sort(header.key, tableConfig.order.orderType)">
           {{header.label}}
           <span class="material-icons" *ngIf="tableConfig.order.defaultColumn === header.key">
             <span class="material-icons" *ngIf="tableConfig.order.orderType === 'desc'; else elseBlock">
@@ -33,11 +38,9 @@ Filter:
         <td *ngFor="let index of tableConfig.headers">
           <span>{{row[index.key]}}</span>
         </td>
-        <div class="inline">
+        <td>
           <app-custom-button *ngFor="let action of tableConfig.actions" [buttonConfig]="action" (clickButton)="actionButtons([action.text, row])" class="swd-button">
           </app-custom-button>
-        </div>
-        <td>
         </td>
       </tr>
     </tbody>
@@ -45,20 +48,19 @@ Filter:
 </div>
 
 <!--Pagination-->
-<br>
-Items Per Page:
-<div>
-  <select [(ngModel)]="tableConfig.pagination.itemPerPage">
-    <option  *ngFor="let itemPerPage of tableConfig.pagination.itemPerPageOptions" >{{itemPerPage}}</option>
-  </select>
+<div class="d-flex flex-row justify-content-center">
+  <div class="d-flex justify-content-start">
+    Items Per Page:
+    <select [(ngModel)]="tableConfig.pagination.itemPerPage">
+      <option  *ngFor="let itemPerPage of tableConfig.pagination.itemPerPageOptions" >{{itemPerPage}}</option>
+    </select>
 </div>
-
-Select Page:
-<div>
-  <select [(ngModel)]="activePage">
-    <option  *ngFor="let pages of totalPageArray | amountPagesTable:data:tableConfig.pagination.itemPerPage">{{pages+1}}</option>
-  </select>
+  <div class="d-flex justify-content-end">
+    Select Page:
+    <select [(ngModel)]="activePage">
+      <option  *ngFor="let pages of totalPageArray | amountPagesTable:data:tableConfig.pagination.itemPerPage">{{pages+1}}</option>
+    </select>
+  </div>
 </div>
-
 
 

@@ -1,10 +1,11 @@
-<p>car-park works!</p>
 <div *ngIf="role === 'admin'; else customerRole">
-  <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_admin"></app-custom-table>
+  <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_admin" (actionEvent)="getAction($event)"></app-custom-table>
+  <br>
+  <div class="d-flex flex-row justify-content-center">
+
+  <button class="btn btn-warning" [routerLink]="'/form-add'" [state]="{type:'vehicle'}">Add New Car</button>
+  </div>
 </div>
 <ng-template #customerRole>
-  <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_customer"></app-custom-table>
+  <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_customer" (actionEvent)="getAction($event)"></app-custom-table>
 </ng-template>
-
-<!--Add Button redirect to insert form-->
-<a routerLink="/homepage"> Add new</a>

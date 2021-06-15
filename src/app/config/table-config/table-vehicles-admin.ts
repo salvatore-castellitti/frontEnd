@@ -15,13 +15,13 @@ let search = {
 }
 
 let deleteButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-danger btn-sm',
   text: 'Delete',
   icon: 'delete',
 }
 
 let updateButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-primary btn-sm',
   text: 'Update',
   icon: 'settings',
 }
@@ -34,7 +34,7 @@ export var tableConfig_Vehicle = {
     {key: "type", label: "Type",},
     {key: "houseProducer", label: "Huse Producer",},
     {key: "model", label: "Model",},
-    {key: "taxCode", label: "Tax Code",},
+    {key: "licensePlate", label: "License Plate",},
   ],
   order: order,
   search: search,

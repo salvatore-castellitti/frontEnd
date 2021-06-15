@@ -11,11 +11,11 @@ let order = {
 }
 
 let search = {
-  columns: ["id", "type", "houseProducer", "model"]
+  columns: ["type", "houseProducer", "model"]
 }
 
 let bookButton = {
-  customCssClass: null,
+  customCssClass: 'btn btn-info btn-sm',
   text: 'Book',
   icon: 'lock',
 }
@@ -28,7 +28,7 @@ export var tableConfig_Vehicle_Customer = {
     {key: "type", label: "Type",},
     {key: "houseProducer", label: "House Producer",},
     {key: "model", label: "Model",},
-    {key: "taxCode", label: "Tax Code",},
+    {key: "licensePlate", label: "License Plate",},
   ],
   order: order,
   search: search,
