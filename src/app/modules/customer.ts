@@ -2,5 +2,7 @@ export interface Customer{
   id: number,
   name: string,
   surname:string,
-  taxCode:string,
+  username: string,
+  password: string,
+  token?: string,
 }

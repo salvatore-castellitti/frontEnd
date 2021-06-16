@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CustomerService} from "./services/customer.service";
 import {DataService} from "./services/data.service";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "./services/authentication.service";
+import {Customer} from "./modules/customer";
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,7 @@ export class AppComponent implements OnInit{
   role: string;
   idUser: string
   profile : any
+  currentUser: Customer;
 
   ngOnInit(): void{
     window.localStorage.setItem('role', 'customer');
@@ -23,7 +26,9 @@ export class AppComponent implements OnInit{
 
   constructor(private customerService: CustomerService,
               private data: DataService,
-              private router: Router) {
+              private router: Router,
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   getProfile(): void{
@@ -32,5 +37,10 @@ export class AppComponent implements OnInit{
       this.data.changeModelValue(this. profile)
     })
     this.router.navigate(['/form-add'], { state: {type: 'customer'} });
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }

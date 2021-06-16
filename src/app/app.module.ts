@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./services/in-memory-data.service";
 
@@ -19,6 +19,12 @@ import { FormAddComponent } from './pages/form-add/form-add.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from "@angular/common";
+import { LoginComponent } from './login/login.component';
+
+import {fakeBackendProvider} from "./_helpers/fake.backend";
+import {JwtInterceptor} from "./_helpers/jwt.interceptor";
+import {ErrorInterceptor} from "./_helpers/error.interceptor";
+
 
 @NgModule({
   declarations: [
@@ -33,6 +39,7 @@ import {DatePipe} from "@angular/common";
     CustomFormComponent,
     FormAddComponent,
     ReservationsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,9 +47,14 @@ import {DatePipe} from "@angular/common";
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
