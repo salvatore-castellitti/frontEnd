@@ -19,11 +19,9 @@ import { FormAddComponent } from './pages/form-add/form-add.component';
 import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from "@angular/common";
-import { LoginComponent } from './login/login.component';
-
-import {fakeBackendProvider} from "./_helpers/fake.backend";
-import {JwtInterceptor} from "./_helpers/jwt.interceptor";
-import {ErrorInterceptor} from "./_helpers/error.interceptor";
+import { LoginComponent } from './pages/login/login.component';
+import { NotFoundComponent } from './pages/error/not-found/not-found.component';
+import { UnathorizedComponent } from './pages/error/unathorized/unathorized.component';
 
 
 @NgModule({
@@ -40,21 +38,19 @@ import {ErrorInterceptor} from "./_helpers/error.interceptor";
     FormAddComponent,
     ReservationsComponent,
     LoginComponent,
+    NotFoundComponent,
+    UnathorizedComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
+    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    fakeBackendProvider
-  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

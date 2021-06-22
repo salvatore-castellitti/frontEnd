@@ -1,9 +1,9 @@
 export class TableCustomer{
   tableConfig = {
     headers: [
-      {key: "name", label: "First Name",},
-      {key: "surname", label: "Last Name",},
-      {key: "taxCode", label: "Tax Code",},
+      {key: "firstName", label: "First Name",},
+      {key: "lastName", label: "Last Name",},
+      {key: "emailId", label: "Email",},
     ],
     order: order,
     search: search,
@@ -18,12 +18,12 @@ let pagination = {
 }
 
 let order = {
-  defaultColumn: "name",
+  defaultColumn: "firstName",
   orderType:"asc"
 }
 
 let search = {
-  columns: ["name", "surname"]
+  columns: ["firstName", "lastName"]
 }
 
 let deleteButton = {
@@ -43,8 +43,10 @@ let actions = [updateButton,deleteButton]
 export var tableConfig = {
   headers: [
     {key: "id", label: "Id",},
-    {key: "name", label: "Name",},
-    {key: "surname", label: "Surname",},
+    {key: "firstName", label: "Name",},
+    {key: "lastName", label: "Surname",},
+    {key: "emailId", label: "Email",},
+    {key: "birthday", label: "Birthday",},
   ],
   order: order,
   search: search,

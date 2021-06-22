@@ -15,7 +15,7 @@
     Chosen End Date: {{selectedEndDate}}<br>
     <div class="d-flex flex-row justify-content-center">
       <select [(ngModel)]="chosenCar">
-        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id" >
           {{vehicle.houseProducer}} {{vehicle.model}}
         </option>
       </select>
@@ -23,6 +23,3 @@
     </div>
   </div>
 </ng-template>
-
-{{typeForm}}
-{{controlDate}}

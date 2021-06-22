@@ -5,6 +5,7 @@ import {CustomerService} from "../../services/customer.service";
 import {Vehicle} from "../../modules/vehicle";
 import {Data, Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
+import {CustomerRESTService} from "../../services/customer-rest.service";
 
 @Component({
   selector: 'app-admin-homepage',
@@ -20,14 +21,19 @@ export class AdminHomepageComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
               private data: DataService,
-              private router: Router) { }
+              private router: Router,
+              private customerRestService: CustomerRESTService) { }
 
   ngOnInit(): void {
         this.getCustomers();
   }
 
+  // getCustomers(): void {
+  //   this.customerService.getCustomers()
+  //     .subscribe(customers => this.customers = customers);
+  // }
   getCustomers(): void {
-    this.customerService.getCustomers()
+    this.customerRestService.getUserList()
       .subscribe(customers => this.customers = customers);
   }
 
@@ -46,9 +52,14 @@ export class AdminHomepageComponent implements OnInit {
     }
   }
 
-  removeCustomer(vehicle: Vehicle){
-    const id = vehicle.id;
-    this.customerService.deleteCustomer(id).subscribe(vehicle => console.log(vehicle))
+  // removeCustomer(vehicle: Vehicle){
+  //   const id = vehicle.id;
+  //   this.customerService.deleteCustomer(id).subscribe(vehicle => console.log(vehicle))
+  //   this.getCustomers()
+  // }
+  removeCustomer(customer: Customer){
+    const id = customer.id;
+    this.customerRestService.deleteUser(id).subscribe(data => console.log(data))
     this.getCustomers()
   }
 

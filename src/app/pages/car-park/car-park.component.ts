@@ -5,6 +5,8 @@ import {Vehicle} from "../../modules/vehicle";
 import {VehicleService} from "../../services/vehicle.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
+import {SalutiDataService} from "../../services/saluti-data.service";
+import {VehicleRESTService} from "../../services/vehicle-rest.service";
 
 @Component({
   selector: 'app-car-park',
@@ -18,20 +20,27 @@ export class CarParkComponent implements OnInit {
   vehicles: Vehicle[] = [];
 
   model:any = {}
+  messaggio =""
+  utente = 'salvo'
 
 
   constructor(private vehicleService: VehicleService,
               private router: Router,
-              private data : DataService) { }
+              private data : DataService,
+              private vehicleRestService: VehicleRESTService) { }
 
   ngOnInit(): void {
-    this.getVehicles();
     this.data.currentModel.subscribe(model => this.model = model)
+    this.getVehicles();
 
   }
 
+  // getVehicles(): void {
+  //   this.vehicleService.getVehicles()
+  //     .subscribe(vehicles => this.vehicles = vehicles);
+  // }
   getVehicles(): void {
-    this.vehicleService.getVehicles()
+    this.vehicleRestService.getVehicleList()
       .subscribe(vehicles => this.vehicles = vehicles);
   }
 
@@ -51,11 +60,17 @@ export class CarParkComponent implements OnInit {
     }
   }
 
+  // removeVehicle(vehicle: Vehicle){
+  //   const id = vehicle.id;
+  //   this.vehicleService.deleteVehicle(id).subscribe(vehicle => console.log(vehicle))
+  //   this.getVehicles()
+  // }
   removeVehicle(vehicle: Vehicle){
     const id = vehicle.id;
-    this.vehicleService.deleteVehicle(id).subscribe(vehicle => console.log(vehicle))
-    this.getVehicles()
+    this.vehicleRestService.deleteVehicle(id).subscribe(vehicle => {
+      console.log(vehicle)
+      this.getVehicles()
+    })
+
   }
-
-
 }

@@ -29,8 +29,7 @@ let actions = [deleteButton, approveButton]
 
 export var tableConfig_Reservation = {
   headers: [
-    {key: "id", label: "Id",},
-    {key: "customer", label: "Customer",},
+    {key: "user", label: "Customer",},
     {key: "startDate", label: "Start Date",},
     {key: "endDate", label: "End Date",},
     {key: "vehicle", label: "Vehicle",},

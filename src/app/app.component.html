@@ -1,7 +1,7 @@
 <br><br><br>
 <div class="d-flex flex-row justify-content-center">
 <nav>
-  <ng-container *ngIf="role==='admin'; else roleCustomer">
+  <ng-container *ngIf="role==='ADMIN'; else roleCustomer">
     <a routerLink="/homepage"> HomePage</a>
     <a routerLink="/reservations"> Reservations </a>
   </ng-container>
@@ -12,11 +12,15 @@
 
   <a routerLink="/carPark"> Car Park</a>
   <a (click)="getProfile()"> Profile</a>
-  <a class="nav-item nav-link" (click)="logout()">Logout</a>
+
+  <div *ngIf="!currentUser">
+    <a href="/login">Login</a>
+  </div>
 </nav>
   </div>
 <br>
 <br>
 <router-outlet></router-outlet>
+
 
 

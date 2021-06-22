@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "./services/customer.service";
 import {DataService} from "./services/data.service";
 import {Router} from "@angular/router";
-import {AuthenticationService} from "./services/authentication.service";
 import {Customer} from "./modules/customer";
+import {CustomerRESTService} from "./services/customer-rest.service";
+import {Role} from "./modules/role";
 
 @Component({
   selector: 'app-root',
@@ -17,30 +18,42 @@ export class AppComponent implements OnInit{
   profile : any
   currentUser: Customer;
 
+
   ngOnInit(): void{
-    window.localStorage.setItem('role', 'customer');
-    window.localStorage.setItem('idUser', '13');
     this.role = window.localStorage.getItem('role');
     this.idUser = window.localStorage.getItem('idUser')
+
+
   }
 
   constructor(private customerService: CustomerService,
               private data: DataService,
               private router: Router,
-              private authenticationService: AuthenticationService) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+              private customerRestService: CustomerRESTService,
+              ) {
+    this.customerRestService.currentCustomer.subscribe(data => {
+      this.currentUser = data
+      window.localStorage.setItem('role', this.currentUser.role);
+      window.localStorage.setItem('idUser', String(this.currentUser.id));
+
+
+
+    })
   }
 
   getProfile(): void{
-    this.customerService.getCustomer(this.idUser).subscribe( item => {
+    this.customerRestService.getUserById(+this.idUser).subscribe( item => {
       this.profile = item
       this.data.changeModelValue(this. profile)
     })
     this.router.navigate(['/form-add'], { state: {type: 'customer'} });
   }
 
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
+  logOut(){
+    this.customerRestService.logout().subscribe(data=>{
+      this.router.navigate(['/login']);
+    })
   }
+
+
 }

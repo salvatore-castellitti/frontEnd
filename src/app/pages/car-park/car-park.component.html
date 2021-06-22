@@ -1,4 +1,4 @@
-<div *ngIf="role === 'admin'; else customerRole">
+<div *ngIf="role === 'ADMIN'; else customerRole">
   <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_admin" (actionEvent)="getAction($event)"></app-custom-table>
   <br>
   <div class="d-flex flex-row justify-content-center">

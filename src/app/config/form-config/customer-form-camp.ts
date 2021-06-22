@@ -1,5 +1,5 @@
 export var customerFormCamp = {
-  idData: ["name", "surname", "birthday", "taxCode"]
+  idData: ["firstName", "lastName", "emailId"] //birthday
 }
 
 export var vehicleFormCamp = {

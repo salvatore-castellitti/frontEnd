@@ -1,8 +1,11 @@
-export interface Customer{
-  id: number,
-  name: string,
-  surname:string,
-  username: string,
-  password: string,
-  token?: string,
+import {Role} from "./role";
+
+export class Customer{
+  id: number;
+  firstName: string;
+  lastName:string;
+  username: string = "";
+  password: string = "";
+  token?: string;
+  role: Role;
 }
