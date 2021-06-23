@@ -13,16 +13,26 @@
   <div *ngIf="typeForm==='reservation' && !controlDate; else custromerRegisterForm">
     <app-custom-form [formConfig]="reservationFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
-  <div *ngIf="controlDate" class="d-flex flex-row justify-content-center">
-    Chosen Start Date: {{selectedStartDate}}<br>
-    Chosen End Date: {{selectedEndDate}}<br>
-    <div class="d-flex flex-row justify-content-center">
-      <select [(ngModel)]="chosenCar">
-        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id" >
-          {{vehicle.houseProducer}} {{vehicle.model}}
-        </option>
-      </select>
-      <button class="btn-warning" (click)="receiveFormCompiled($event)" >Add</button>
+
+  <div *ngIf="controlDate" class="d-flex justify-content-center">
+
+      Chosen Start Date: {{selectedStartDate}}<br>
+      Chosen End Date: {{selectedEndDate}}<br>
+
+    <div class="d-flex justify-content-center">
+      <div *ngIf="vehicles.length==0; else noVehicles">
+        <div class="alert alert-danger d-flex flex-row justify-content-center" role="alert">
+          Ooops, No Vehicle avaible for this chosen Dates
+        </div>
+      </div>
+      <ng-template #noVehicles>
+        <select [(ngModel)]="chosenCar">
+          <option *ngFor="let vehicle of vehicles" [value]="vehicle.id" >
+            {{vehicle.houseProducer}} {{vehicle.model}}
+          </option>
+        </select>
+        <button class="btn-warning" (click)="receiveFormCompiled($event)" >Add</button>
+      </ng-template>
     </div>
   </div>
 </ng-template>
