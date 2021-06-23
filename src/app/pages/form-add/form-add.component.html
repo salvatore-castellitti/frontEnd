@@ -1,3 +1,6 @@
+<div *ngIf="err" class="alert alert-warning d-flex flex-row justify-content-center" role="alert" >
+  {{err}}
+</div>
 <div *ngIf="typeForm==='vehicle'; else customerForm">
   <app-custom-form [formConfig]="vehicleFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"> </app-custom-form>
 </div>

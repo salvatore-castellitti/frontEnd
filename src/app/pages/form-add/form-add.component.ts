@@ -32,6 +32,7 @@ export class FormAddComponent implements OnInit {
   //definire cariabile tipo per
   typeForm = history.state.type;
   controlDate: boolean;
+  err: string;
 
   customerFormCamp = customerFormCamp;
   customerRegisterCamp = customerRegisterCamo;
@@ -81,7 +82,6 @@ export class FormAddComponent implements OnInit {
       case 'reservation':
         //Check delle date, torna al form con variabili per i veicoli easy
         if(this.controlDate){
-          console.log(this.selectedEndDate)
           this.addReservation();
         }else{
           this.checkDate();
@@ -149,9 +149,12 @@ export class FormAddComponent implements OnInit {
     this.selectedStartDate = this.model.startDate
     this.selectedEndDate = this.model.endDate
     if(startDate <= endDate && startDate >= currentDate && endDate>=currentDate){
+      this.err=null
       this.controlDate = true
       this.getVehicles(startDate, endDate);
       this.router.navigate(['/form-add']);
+    }else{
+      this.err = 'Sorry, invalid Date, also be sure to check the correct format, if the problem persist contact the Support'
     }
   }
 
