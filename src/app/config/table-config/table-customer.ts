@@ -3,7 +3,7 @@ export class TableCustomer{
     headers: [
       {key: "firstName", label: "First Name",},
       {key: "lastName", label: "Last Name",},
-      {key: "emailId", label: "Email",},
+      {key: "username", label: "Username",},
     ],
     order: order,
     search: search,
@@ -45,8 +45,7 @@ export var tableConfig = {
     {key: "id", label: "Id",},
     {key: "firstName", label: "Name",},
     {key: "lastName", label: "Surname",},
-    {key: "emailId", label: "Email",},
-    {key: "birthday", label: "Birthday",},
+    {key: "username", label: "Username",},
   ],
   order: order,
   search: search,

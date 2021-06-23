@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Vehicle} from "../modules/vehicle";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
+import {Customer} from "../modules/customer";
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +11,45 @@ export class VehicleRESTService {
 
   private baseUrl = 'http://localhost:8080/api/v1/vehicles'
 
-  constructor(private http: HttpClient) { }
+  public currentCustomer: Observable<Customer>;
+  public currentCustomerSubject: BehaviorSubject<Customer>
+  header: HttpHeaders;
+
+  constructor(private http: HttpClient) {
+    this.currentCustomerSubject= new BehaviorSubject<Customer>(JSON.parse(localStorage.getItem('currentCustomer')))
+    this.currentCustomer = this.currentCustomerSubject.asObservable();
+  }
+
+  setHeaders(){
+    this.header = new HttpHeaders({
+      authorization:'Bearer ' + this.currentCustomerSubject.value.token,
+      "Content-Type":"application/json; charset=UTF-8"
+    })
+  }
+
 
   getVehicleList(): Observable<Vehicle[]>{
-    return this.http.get<Vehicle[]>(`${this.baseUrl}`)
+    this.setHeaders()
+    return this.http.get<Vehicle[]>(`${this.baseUrl}`, {headers: this.header})
   }
 
   createVehicle(vehicle: Vehicle): Observable<Object>{
-    return this.http.post(`${this.baseUrl}`, vehicle)
+    this.setHeaders()
+    return this.http.post(`${this.baseUrl}`, vehicle, {headers:this.header})
   }
 
   getVehicleById(id: number): Observable<Vehicle>{
-    return this.http.get<Vehicle>(`${this.baseUrl}/${id}`)
+    this.setHeaders()
+    return this.http.get<Vehicle>(`${this.baseUrl}/${id}`, {headers: this.header})
   }
 
   deleteVehicle(id: number): Observable<Object>{
-    return this.http.delete(`${this.baseUrl}/${id}`)
+    this.setHeaders()
+    return this.http.delete(`${this.baseUrl}/${id}`, {headers: this.header})
   }
 
   getFreeVehicles(sDate: Date, eDate: Date): Observable<Vehicle[]>{
-    return this.http.get<Vehicle[]>(`${this.baseUrl}/${sDate}/${eDate}`)
+    this.setHeaders()
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/${sDate}/${eDate}`,{headers: this.header})
   }
 }

@@ -28,10 +28,6 @@ export class AdminHomepageComponent implements OnInit {
         this.getCustomers();
   }
 
-  // getCustomers(): void {
-  //   this.customerService.getCustomers()
-  //     .subscribe(customers => this.customers = customers);
-  // }
   getCustomers(): void {
     this.customerRestService.getUserList()
       .subscribe(customers => this.customers = customers);
@@ -52,15 +48,13 @@ export class AdminHomepageComponent implements OnInit {
     }
   }
 
-  // removeCustomer(vehicle: Vehicle){
-  //   const id = vehicle.id;
-  //   this.customerService.deleteCustomer(id).subscribe(vehicle => console.log(vehicle))
-  //   this.getCustomers()
-  // }
   removeCustomer(customer: Customer){
     const id = customer.id;
-    this.customerRestService.deleteUser(id).subscribe(data => console.log(data))
-    this.getCustomers()
+    this.customerRestService.deleteUser(id).subscribe(data => {
+      console.log(data)
+      this.getCustomers()
+    })
+
   }
 
 }

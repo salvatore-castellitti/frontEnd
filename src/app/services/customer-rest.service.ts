@@ -13,26 +13,44 @@ export class CustomerRESTService {
 
   public currentCustomer: Observable<Customer>;
   public currentCustomerSubject: BehaviorSubject<Customer>
+  header: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.currentCustomerSubject= new BehaviorSubject<Customer>(JSON.parse(localStorage.getItem('currentCustomer')))
     this.currentCustomer = this.currentCustomerSubject.asObservable();
   }
 
+  setHeaders(){
+    this.header = new HttpHeaders({
+      authorization:'Bearer ' + this.currentCustomerSubject.value.token,
+      "Content-Type":"application/json; charset=UTF-8"
+    })
+  }
+
   getUserList(): Observable<Customer[]>{
-    return this.http.get<Customer[]>(`${this.baseUrl}`);
+    this.setHeaders()
+    return this.http.get<Customer[]>(`${this.baseUrl}/list`, {headers: this.header});
   }
 
   createUser(customer: Customer): Observable<Object>{
-    return this.http.post(`${this.baseUrl}`, customer)
+    this.setHeaders()
+    return this.http.post(`${this.baseUrl}/add`, customer, {headers: this.header})
   }
 
+  updateUser(customer: Customer): Observable<Object>{
+    this.setHeaders()
+    return this.http.post(`${this.baseUrl}/update`, customer, {headers: this.header})
+  }
+
+
   getUserById(id: number): Observable<Customer>{
-    return this.http.get<Customer>(`${this.baseUrl}/${id}`)
+    this.setHeaders()
+    return this.http.get<Customer>(`${this.baseUrl}/${id}`, {headers: this.header})
   }
 
   deleteUser(id: number): Observable<Object>{
-    return this.http.delete(`${this.baseUrl}/${id}`)
+    this.setHeaders()
+    return this.http.delete(`${this.baseUrl}/${id}`, {headers: this.header})
   }
 
   public get currentUserValue(): Customer{
@@ -61,5 +79,10 @@ export class CustomerRESTService {
         this.currentCustomerSubject.next(null)
       })
     );
+  }
+
+  register(customer: Customer): Observable<any>{
+    return this.http.post(`${this.baseUrl}/registration`, JSON.stringify(customer),
+      {headers: {"Content-Type":"application/json; charset=UTF-8"}})
   }
 }

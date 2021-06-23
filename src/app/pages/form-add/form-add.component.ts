@@ -1,5 +1,10 @@
 import { Component, OnInit, Input} from '@angular/core';
-import {customerFormCamp, reservationFormCamp, vehicleFormCamp} from "../../config/form-config/customer-form-camp";
+import {
+  customerFormCamp,
+  customerRegisterCamo,
+  reservationFormCamp,
+  vehicleFormCamp
+} from "../../config/form-config/customer-form-camp";
 import {VehicleService} from "../../services/vehicle.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
@@ -11,6 +16,7 @@ import {CustomerRESTService} from "../../services/customer-rest.service";
 import {VehicleRESTService} from "../../services/vehicle-rest.service";
 import {ReservationRESTService} from "../../services/reservation-rest.service";
 import {forkJoin} from "rxjs";
+import {Customer} from "../../modules/customer";
 
 
 @Component({
@@ -28,6 +34,7 @@ export class FormAddComponent implements OnInit {
   controlDate: boolean;
 
   customerFormCamp = customerFormCamp;
+  customerRegisterCamp = customerRegisterCamo;
   vehicleFormCamp = vehicleFormCamp;
   reservationFormCamp = reservationFormCamp;
 
@@ -38,8 +45,9 @@ export class FormAddComponent implements OnInit {
   selectedStartDate
   selectedEndDate
   selectedId
-  finalUser
-  finalVehicle
+
+  customer: Customer = new Customer();
+
 
   constructor(private vehicleService: VehicleService,
               private customerService: CustomerService,
@@ -75,18 +83,15 @@ export class FormAddComponent implements OnInit {
         if(this.controlDate){
           console.log(this.selectedEndDate)
           this.addReservation();
-
         }else{
           this.checkDate();
         }
+        break;
+      case 'customer-register':
+        this.registerCustomer()
+        break;
     }
   }
-
-  // addVehicle(){
-  //   this.vehicleService.addVehicle(this.model).subscribe(response => {
-  //     console.log(response)
-  //   })
-  // }
   addVehicle(){
     this.vehicleRestService.createVehicle(this.model).subscribe(response => {
       console.log(response)
@@ -95,13 +100,21 @@ export class FormAddComponent implements OnInit {
     })
   }
 
-  // addCustomer(){
-  //   this.customerService.addCustomer(this.model).subscribe(response => {
-  //     console.log(response)
-  //   })
-  // }
   addCustomer(){
-    this.customerRestService.createUser(this.model).subscribe(response => {
+    this.customerRestService.updateUser(this.model).subscribe(response => {
+      console.log(response)
+      if(this.role=="ADMIN"){
+        this.router.navigateByUrl('/homepage');
+      }else{
+        this.router.navigateByUrl('/homepage-customer');
+      }
+    })
+  }
+
+  registerCustomer(){
+    this.customer = this.model
+    console.log(this.customer)
+    this.customerRestService.createUser(this.customer).subscribe(response =>{
       console.log(response)
       this.router.navigateByUrl('/homepage');
     })
@@ -124,11 +137,6 @@ export class FormAddComponent implements OnInit {
 
       })
     })
-
-
-
-
-
   }
 
   checkDate(){

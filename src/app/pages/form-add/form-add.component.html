@@ -7,7 +7,7 @@
   </div>
 </ng-template>
 <ng-template #reservationForm>
-  <div *ngIf="typeForm==='reservation' && !controlDate">
+  <div *ngIf="typeForm==='reservation' && !controlDate; else custromerRegisterForm">
     <app-custom-form [formConfig]="reservationFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
   <div *ngIf="controlDate" class="d-flex flex-row justify-content-center">
@@ -21,5 +21,10 @@
       </select>
       <button class="btn-warning" (click)="receiveFormCompiled($event)" >Add</button>
     </div>
+  </div>
+</ng-template>
+<ng-template #custromerRegisterForm>
+  <div *ngIf="typeForm==='customer-register'">
+    <app-custom-form [formConfig]="customerRegisterCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
 </ng-template>
