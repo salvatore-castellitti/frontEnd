@@ -1,24 +1,3 @@
-<!--
-<div class="d-flex flex-row justify-content-center">
-<nav>
-  <ng-container *ngIf="role==='ADMIN'; else roleCustomer">
-    <a routerLink="/homepage"> HomePage</a>
-    <a routerLink="/reservations"> Reservations </a>
-  </ng-container>
-
-  <ng-template #roleCustomer>
-    <a routerLink="/homepage-customer"> HomePage</a>
-  </ng-template>
-
-  <a routerLink="/carPark"> Car Park</a>
-  <a (click)="getProfile()"> Profile</a>
-
-  <div *ngIf="!currentUser">
-    <a href="/login">Login</a>
-  </div>
-</nav>
-  </div>
--->
 <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #e3f2fd;" >
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">

@@ -1,17 +1,13 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {
   customerFormCamp,
   customerRegisterCamo,
   reservationFormCamp,
   vehicleFormCamp
 } from "../../config/form-config/customer-form-camp";
-import {VehicleService} from "../../services/vehicle.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
-import {CustomerService} from "../../services/customer.service";
-import {ReservationService} from "../../services/reservation.service";
 import {Vehicle} from "../../modules/vehicle";
-import {DatePipe} from "@angular/common";
 import {CustomerRESTService} from "../../services/customer-rest.service";
 import {VehicleRESTService} from "../../services/vehicle-rest.service";
 import {ReservationRESTService} from "../../services/reservation-rest.service";
@@ -29,7 +25,6 @@ export class FormAddComponent implements OnInit {
   role = window.localStorage.getItem('role');
   idUser = window.localStorage.getItem('idUser')
 
-  //definire cariabile tipo per
   typeForm = history.state.type;
   controlDate: boolean;
   err: string;
@@ -50,12 +45,8 @@ export class FormAddComponent implements OnInit {
   customer: Customer = new Customer();
 
 
-  constructor(private vehicleService: VehicleService,
-              private customerService: CustomerService,
-              private reservationService: ReservationService,
-              private router: Router,
+  constructor(private router: Router,
               private data: DataService,
-              public datePipe: DatePipe,
               private customerRestService: CustomerRESTService,
               private vehicleRestService: VehicleRESTService,
               private reservationRestService: ReservationRESTService) { }
@@ -72,15 +63,12 @@ export class FormAddComponent implements OnInit {
 
     switch (this.typeForm){
       case 'vehicle':
-        //serviceVehicle
         this.addVehicle();
         break;
       case 'customer':
-        //serviceCustomer
         this.addCustomer();
         break;
       case 'reservation':
-        //Check delle date, torna al form con variabili per i veicoli easy
         if(this.controlDate){
           this.addReservation();
         }else{

@@ -9,7 +9,6 @@ export class PaginationPipe implements PipeTransform {
     if (page == null){
       page = 1
     }
-    // let end = +page + +1;
     return [...value.slice(itemsPerPage * (page - +1), itemsPerPage * (page))];
   }
 

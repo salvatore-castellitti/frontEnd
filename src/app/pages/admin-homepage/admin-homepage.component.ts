@@ -1,8 +1,6 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {tableConfig, TableCustomer} from "../../config/table-config/table-customer";
+import {tableConfig} from "../../config/table-config/table-customer";
 import {Customer} from "../../modules/customer";
-import {CustomerService} from "../../services/customer.service";
-import {Vehicle} from "../../modules/vehicle";
 import {Data, Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
 import {CustomerRESTService} from "../../services/customer-rest.service";
@@ -19,8 +17,7 @@ export class AdminHomepageComponent implements OnInit {
   customers: Customer[] = [];
   tablesConfig = tableConfig;
 
-  constructor(private customerService: CustomerService,
-              private data: DataService,
+  constructor(private data: DataService,
               private router: Router,
               private customerRestService: CustomerRESTService) { }
 
@@ -54,7 +51,6 @@ export class AdminHomepageComponent implements OnInit {
       console.log(data)
       this.getCustomers()
     })
-
   }
 
 }

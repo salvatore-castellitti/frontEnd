@@ -1,17 +1,3 @@
-export class TableCustomer{
-  tableConfig = {
-    headers: [
-      {key: "firstName", label: "First Name",},
-      {key: "lastName", label: "Last Name",},
-      {key: "username", label: "Username",},
-    ],
-    order: order,
-    search: search,
-    pagination: pagination,
-    actions: actions
-  }
-}
-
 let pagination = {
   itemPerPage: 4,
   itemPerPageOptions: [4,8,12]

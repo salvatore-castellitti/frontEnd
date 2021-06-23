@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CustomerService} from "./services/customer.service";
 import {DataService} from "./services/data.service";
 import {Router} from "@angular/router";
 import {Customer} from "./modules/customer";
 import {CustomerRESTService} from "./services/customer-rest.service";
-import {Role} from "./modules/role";
 
 @Component({
   selector: 'app-root',
@@ -26,8 +24,7 @@ export class AppComponent implements OnInit{
 
   }
 
-  constructor(private customerService: CustomerService,
-              private data: DataService,
+  constructor(private data: DataService,
               private router: Router,
               private customerRestService: CustomerRESTService,
               ) {
@@ -54,6 +51,5 @@ export class AppComponent implements OnInit{
       this.router.navigate(['/login']);
     })
   }
-
 
 }

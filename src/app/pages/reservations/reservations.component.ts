@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {tableConfig_Reservation} from "../../config/table-config/table-reservation-admin";
-import {ReservationService} from "../../services/reservation.service";
 import {Reservation} from "../../modules/reservation";
 import {tableConfig_Reservation_Customer} from "../../config/table-config/table-reservation-customer";
-import {Vehicle} from "../../modules/vehicle";
 import {DataService} from "../../services/data.service";
 import {Router} from "@angular/router";
 import {ReservationRESTService} from "../../services/reservation-rest.service";
@@ -25,8 +23,7 @@ export class ReservationsComponent implements OnInit {
 
   reservations: Reservation[] = [];
 
-  constructor(private reservationService: ReservationService,
-              private data: DataService,
+  constructor(private data: DataService,
               private router: Router,
               private reservationRestService: ReservationRESTService,
               private customerRESTService: CustomerRESTService) {}
@@ -74,12 +71,14 @@ export class ReservationsComponent implements OnInit {
   removeReservation(reservation: Reservation){
     const id = reservation.id;
     console.log(reservation.id)
-    this.reservationRestService.deleteReservation(id).subscribe(reservation => console.log(reservation))
-    if(this.role == 'ADMIN'){
-      this.getReservations()
-    }else if(this.role == 'CUSTOMER'){
-      this.getReservationCurrentUSer(this.loggedUser)
-    }
+    this.reservationRestService.deleteReservation(id).subscribe(reservation => {
+        console.log(reservation)
+        if(this.role == 'ADMIN'){
+          this.getReservations()
+        }else if(this.role == 'CUSTOMER'){
+          this.getReservationCurrentUSer(this.loggedUser)
+        }
+      })
   }
 
 }

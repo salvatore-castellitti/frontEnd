@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {tableConfig_Vehicle} from "../../config/table-config/table-vehicles-admin";
 import {tableConfig_Vehicle_Customer} from "../../config/table-config/table-vehicles-customer";
 import {Vehicle} from "../../modules/vehicle";
-import {VehicleService} from "../../services/vehicle.service";
 import {Router} from "@angular/router";
 import {DataService} from "../../services/data.service";
-import {SalutiDataService} from "../../services/saluti-data.service";
 import {VehicleRESTService} from "../../services/vehicle-rest.service";
 
 @Component({
@@ -20,12 +18,8 @@ export class CarParkComponent implements OnInit {
   vehicles: Vehicle[] = [];
 
   model:any = {}
-  messaggio =""
-  utente = 'salvo'
 
-
-  constructor(private vehicleService: VehicleService,
-              private router: Router,
+  constructor(private router: Router,
               private data : DataService,
               private vehicleRestService: VehicleRESTService) { }
 
@@ -35,10 +29,6 @@ export class CarParkComponent implements OnInit {
 
   }
 
-  // getVehicles(): void {
-  //   this.vehicleService.getVehicles()
-  //     .subscribe(vehicles => this.vehicles = vehicles);
-  // }
   getVehicles(): void {
     this.vehicleRestService.getVehicleList()
       .subscribe(vehicles => this.vehicles = vehicles);
@@ -60,11 +50,6 @@ export class CarParkComponent implements OnInit {
     }
   }
 
-  // removeVehicle(vehicle: Vehicle){
-  //   const id = vehicle.id;
-  //   this.vehicleService.deleteVehicle(id).subscribe(vehicle => console.log(vehicle))
-  //   this.getVehicles()
-  // }
   removeVehicle(vehicle: Vehicle){
     const id = vehicle.id;
     this.vehicleRestService.deleteVehicle(id).subscribe(vehicle => {

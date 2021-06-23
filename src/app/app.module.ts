@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
-import {InMemoryDataService} from "./services/in-memory-data.service";
+import {HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,7 +44,6 @@ import { UnathorizedComponent } from './pages/error/unathorized/unathorized.comp
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    // HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
     NgbModule,
     ReactiveFormsModule
   ],

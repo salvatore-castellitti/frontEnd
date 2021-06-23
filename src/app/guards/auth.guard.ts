@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree} from "@angular/router";
-import {Observable} from "rxjs";
 import {CustomerRESTService} from "../services/customer-rest.service";
 import {Customer} from "../modules/customer";
 
