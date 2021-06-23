@@ -10,7 +10,7 @@ let order = {
 }
 
 let search = {
-  columns: ["id", "customer", "startDate", "endDate", "vehicle"]
+  columns: ["customer", "startDate", "endDate", "vehicle"]
 }
 
 let deleteButton = {
@@ -29,6 +29,7 @@ let actions = [deleteButton, approveButton]
 
 export var tableConfig_Reservation = {
   headers: [
+    {key: "id", label: "Id",},
     {key: "user", label: "Customer",},
     {key: "startDate", label: "Start Date",},
     {key: "endDate", label: "End Date",},

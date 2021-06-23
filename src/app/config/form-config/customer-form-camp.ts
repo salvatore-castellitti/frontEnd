@@ -1,20 +1,32 @@
 export var customerFormCamp = {
-  idData: ["firstName", "lastName", "username"]
+  idData: [
+    {camp:"firstName", label: "First Name"},
+    {camp:"lastName", label: "Last Name"},
+    {camp:"username", label: "Username"},
+  ]
 }
 
 export var customerRegisterCamo = {
-  idData: [ "username", "password"]
+  idData: [
+    {camp:"username", label: "Username"},
+    {camp:"password", label: "Password"},
+
+  ]
 }
 
 export var vehicleFormCamp = {
-  idData: ["type", "houseProducer", "model", "licensePlate"]
+  idData: [
+    {camp:"type", label: "Type"},
+    {camp:"houseProducer", label: "House Producer"},
+    {camp:"model", label: "Model"},
+    {camp:"licensePlate", label: "License Plate"},
+    ]
 }
 
 export var reservationFormCamp = {
-  idData: ["startDate", "endDate"]
+  idData: [
+    {camp:"startDate", label: "Start Date dd/MM/yyyy"},
+    {camp:"endDate", label: "End Date dd/MM/yyyy"},
+
+  ]
 }
-/*vehicle separato, solo date, e poi dopo co ngif mostarre la select dei veicoli
-* quando premi il bottone, in form component, passa i valori
-*
-*
-* */

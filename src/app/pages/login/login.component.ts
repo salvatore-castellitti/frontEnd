@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.customerService.login(this.customer).subscribe(data => {
       console.log(this.customer)
       this.router.navigate(['/carPark'])
-
+      window.location.reload()
     }, err => {
       this.errorMessage='Username or Password incorrect'
     })

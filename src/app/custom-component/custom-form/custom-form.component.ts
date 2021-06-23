@@ -31,5 +31,6 @@ export class CustomFormComponent implements OnInit, OnDestroy{
 }
 
 export class MyFormConfig{
-  idData: string[]
+  idData:{camp: string, label: string }[]
+
 }

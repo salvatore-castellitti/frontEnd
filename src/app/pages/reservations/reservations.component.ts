@@ -45,6 +45,7 @@ export class ReservationsComponent implements OnInit {
   getAction(action: any[]) {
     let actionCrud = action[0];
     let reservation = action[1];
+    console.log(reservation)
     switch (actionCrud){
       case 'Delete':
         this.removeReservation(reservation)
@@ -56,15 +57,10 @@ export class ReservationsComponent implements OnInit {
     }
   }
 
-  // getReservations(): void{
-  //   this.reservationService.getReservations()
-  //     .subscribe(reservations => this.reservations = reservations)
-  // }
   getReservations(): void{
     this.reservationRestService.getReservationList()
       .subscribe(reservations => {
-        this.reservations = reservations,
-          console.log(this.reservations)
+        this.reservations = reservations
       })
 
   }
@@ -77,6 +73,7 @@ export class ReservationsComponent implements OnInit {
 
   removeReservation(reservation: Reservation){
     const id = reservation.id;
+    console.log(reservation.id)
     this.reservationRestService.deleteReservation(id).subscribe(reservation => console.log(reservation))
     if(this.role == 'ADMIN'){
       this.getReservations()

@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   role: string;
   idUser: string
   profile : any
-  currentUser: Customer;
+  currentUser: Customer = new Customer();
 
 
   ngOnInit(): void{
@@ -33,11 +33,11 @@ export class AppComponent implements OnInit{
               ) {
     this.customerRestService.currentCustomer.subscribe(data => {
       this.currentUser = data
-      window.localStorage.setItem('role', this.currentUser.role);
-      window.localStorage.setItem('idUser', String(this.currentUser.id));
+      if(this.currentUser){
+        window.localStorage.setItem('role', this.currentUser.role);
+        window.localStorage.setItem('idUser', String(this.currentUser.id));
 
-
-
+      }
     })
   }
 
