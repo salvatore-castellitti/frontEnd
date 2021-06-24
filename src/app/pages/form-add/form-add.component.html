@@ -11,6 +11,10 @@
 </ng-template>
 <ng-template #reservationForm>
   <div *ngIf="typeForm==='reservation' && !controlDate; else custromerRegisterForm">
+    <div class="d-flex flex-row justify-content-center">
+      <h2> Reservation </h2>
+    </div>
+    <br><br><br>
     <app-custom-form [formConfig]="reservationFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
 
@@ -37,6 +41,10 @@
   </div>
 </ng-template>
 <ng-template #custromerRegisterForm>
+  <div class="d-flex flex-row justify-content-center">
+    <h2> Register </h2>
+  </div>
+  <br><br><br>
   <div *ngIf="typeForm==='customer-register'">
     <app-custom-form [formConfig]="customerRegisterCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>

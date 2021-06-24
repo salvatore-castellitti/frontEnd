@@ -54,4 +54,9 @@ export class ReservationRESTService {
     this.setHeaders()
     return this.http.delete(`${this.baseUrl}/delete/${id}`, {headers: this.header})
   }
+
+  getReservationById(id: number): Observable<Reservation>{
+    this.setHeaders()
+    return this.http.get<Reservation>(`${this.baseUrl}/get/${id}`, {headers: this.header})
+  }
 }

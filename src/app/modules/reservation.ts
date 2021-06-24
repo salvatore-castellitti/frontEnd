@@ -7,4 +7,5 @@ export interface Reservation{
   startDate:string,
   endDate: string,
   vehicle: Vehicle,
+  approved: Boolean;
 }

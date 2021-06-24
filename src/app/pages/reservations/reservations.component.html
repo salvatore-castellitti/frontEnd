@@ -1,7 +1,19 @@
+<div *ngIf="err" class="alert alert-danger " role="alert">
+  {{err}}
+</div>
+
 <ng-container *ngIf="role === 'ADMIN'">
+  <div class="d-flex flex-row justify-content-center">
+    <h2> Reservations </h2>
+  </div>
+  <br><br><br>
   <app-custom-table [tableConfig]="tableConfig" [data]="reservations" (actionEvent)="getAction($event)"></app-custom-table>
 </ng-container>
 <ng-container *ngIf="role === 'CUSTOMER'">
+  <div class="d-flex flex-row justify-content-center">
+    <h2> Home </h2>
+  </div>
+  <br><br><br>
   <app-custom-table [tableConfig]="tableConfig_Customer" [data]="reservations" (actionEvent)="getAction($event)"></app-custom-table>
   <br>
   <div class="d-flex flex-row justify-content-center">

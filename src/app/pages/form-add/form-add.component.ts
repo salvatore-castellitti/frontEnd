@@ -119,6 +119,7 @@ export class FormAddComponent implements OnInit {
       this.model.id = this.selectedId
       this.model.startDate = this.selectedStartDate
       this.model.endDate = this.selectedEndDate
+      this.model.approved = false
       this.reservationRestService.createReservation(this.model).subscribe(response => {
         console.log(response)
         this.router.navigateByUrl('/reservations');
@@ -136,6 +137,7 @@ export class FormAddComponent implements OnInit {
     const currentDate = new Date()
     this.selectedStartDate = this.model.startDate
     this.selectedEndDate = this.model.endDate
+
     if(startDate <= endDate && startDate >= currentDate && endDate>=currentDate){
       this.err=null
       this.controlDate = true
@@ -148,6 +150,7 @@ export class FormAddComponent implements OnInit {
 
   getVehicles(sDate, eDate): void {
     this.vehicleRestService.getFreeVehicles(sDate, eDate)
-      .subscribe(vehicles => this.vehicles = vehicles);
+      .subscribe(vehicles => {
+        this.vehicles = vehicles})
   }
 }

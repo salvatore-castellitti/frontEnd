@@ -25,7 +25,7 @@ let approveButton = {
   icon: 'done',
 }
 
-let actions = [deleteButton, approveButton]
+let actions = [approveButton ,deleteButton]
 
 export var tableConfig_Reservation = {
   headers: [

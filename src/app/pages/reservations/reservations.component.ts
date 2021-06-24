@@ -22,6 +22,7 @@ export class ReservationsComponent implements OnInit {
   tableConfig = tableConfig_Reservation;
   tableConfig_Customer = tableConfig_Reservation_Customer
   loggedUser
+  err
 
 
   reservations: Reservation[] = [];
@@ -71,21 +72,48 @@ export class ReservationsComponent implements OnInit {
 
   getReservationCurrentUSer(user: Customer): void{
     this.reservationRestService.getReservationsCurrent(user)
-      .subscribe(reservations => {this.reservations = reservations})
+      .subscribe(reservations => {
+        this.reservations = reservations
+        reservations.forEach(function (value){
+          value.vehicle = _.get(value, 'vehicle.houseProducer').concat(' ').concat(_.get(value, 'vehicle.model'))
+        })
+      })
 
   }
 
   removeReservation(reservation: Reservation){
     const id = reservation.id;
-    console.log(reservation.id)
-    this.reservationRestService.deleteReservation(id).subscribe(reservation => {
-        console.log(reservation)
-        if(this.role == 'ADMIN'){
-          this.getReservations()
-        }else if(this.role == 'CUSTOMER'){
-          this.getReservationCurrentUSer(this.loggedUser)
+    this.reservationRestService.getReservationById(id).subscribe(reservation =>
+      {
+        if(this.checkDateTime(reservation.startDate)){
+          this.reservationRestService.deleteReservation(id).subscribe(res => {
+            if(this.role == 'ADMIN'){
+              this.getReservations()
+            }else if(this.role == 'CUSTOMER'){
+              this.getReservationCurrentUSer(this.loggedUser)
+            }
+          })
+        }else{
+          this.router.navigate(['/reservations'])
         }
-      })
+      }
+    )
   }
 
+  checkDateTime(sDate){
+    const formatStartDate = sDate.replace(/(\d+[/])(\d+[/])/, '$2$1');
+    const startDate = new Date(formatStartDate)
+    const currentDate = new Date()
+
+    if(((+startDate.getTime() - +currentDate.getTime())/(1000*60*60*24)) <2){
+      this.err= 'Sorry, You can\'t delete this Reservation, contact an admin';
+      return false
+    }else{
+      return true;
+    }
+
+
+
+
+  }
 }
