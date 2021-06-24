@@ -3,7 +3,7 @@ import {Customer} from "./customer";
 
 export interface Reservation{
   id: number,
-  customer: Customer,
+  user: Customer,
   startDate:string,
   endDate: string,
   vehicle: Vehicle,

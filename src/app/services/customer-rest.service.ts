@@ -45,12 +45,12 @@ export class CustomerRESTService {
 
   getUserById(id: number): Observable<Customer>{
     this.setHeaders()
-    return this.http.get<Customer>(`${this.baseUrl}/${id}`, {headers: this.header})
+    return this.http.get<Customer>(`${this.baseUrl}/get/${id}`, {headers: this.header})
   }
 
   deleteUser(id: number): Observable<Object>{
     this.setHeaders()
-    return this.http.delete(`${this.baseUrl}/${id}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, {headers: this.header})
   }
 
   public get currentUserValue(): Customer{

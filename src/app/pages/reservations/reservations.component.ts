@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {ReservationRESTService} from "../../services/reservation-rest.service";
 import {CustomerRESTService} from "../../services/customer-rest.service";
 import {Customer} from "../../modules/customer";
+import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-reservations',
@@ -20,6 +22,7 @@ export class ReservationsComponent implements OnInit {
   tableConfig = tableConfig_Reservation;
   tableConfig_Customer = tableConfig_Reservation_Customer
   loggedUser
+
 
   reservations: Reservation[] = [];
 
@@ -57,6 +60,10 @@ export class ReservationsComponent implements OnInit {
   getReservations(): void{
     this.reservationRestService.getReservationList()
       .subscribe(reservations => {
+        reservations.forEach(function (value){
+          value.user = _.get(value, 'user.username')
+          value.vehicle = _.get(value, 'vehicle.houseProducer').concat(' ').concat(_.get(value, 'vehicle.model'))
+        })
         this.reservations = reservations
       })
 

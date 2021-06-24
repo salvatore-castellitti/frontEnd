@@ -31,17 +31,17 @@ export class ReservationRESTService {
 
   getReservationList(): Observable<Reservation[]>{
     this.setHeaders()
-    return this.http.get<Reservation[]>(`${this.baseUrl}`, {headers:this.header} );
+    return this.http.get<Reservation[]>(`${this.baseUrl}/list`, {headers:this.header} );
   }
 
   createReservation(reservation: Reservation): Observable<Object>{
     this.setHeaders()
-    return this.http.post(`${this.baseUrl}`, reservation, {headers: this.header})
+    return this.http.post(`${this.baseUrl}/add`, reservation, {headers: this.header})
   }
 
   getReservationsCurrent(user): Observable<Reservation[]>{
     this.setHeaders()
-    return this.http.get<Reservation[]>(`${this.baseUrl}`, {headers: this.header})
+    return this.http.get<Reservation[]>(`${this.baseUrl}/list`, {headers: this.header})
       .pipe(map((res: any) => {
           return res.filter(post => {
             return post.user.id == user.id ;
@@ -52,6 +52,6 @@ export class ReservationRESTService {
 
   deleteReservation(id: number): Observable<Object>{
     this.setHeaders()
-    return this.http.delete(`${this.baseUrl}/${id}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, {headers: this.header})
   }
 }

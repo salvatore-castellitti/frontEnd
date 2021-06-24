@@ -30,26 +30,26 @@ export class VehicleRESTService {
 
   getVehicleList(): Observable<Vehicle[]>{
     this.setHeaders()
-    return this.http.get<Vehicle[]>(`${this.baseUrl}`, {headers: this.header})
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/list`, {headers: this.header})
   }
 
   createVehicle(vehicle: Vehicle): Observable<Object>{
     this.setHeaders()
-    return this.http.post(`${this.baseUrl}`, vehicle, {headers:this.header})
+    return this.http.post(`${this.baseUrl}/add`, vehicle, {headers:this.header})
   }
 
   getVehicleById(id: number): Observable<Vehicle>{
     this.setHeaders()
-    return this.http.get<Vehicle>(`${this.baseUrl}/${id}`, {headers: this.header})
+    return this.http.get<Vehicle>(`${this.baseUrl}/get/${id}`, {headers: this.header})
   }
 
   deleteVehicle(id: number): Observable<Object>{
     this.setHeaders()
-    return this.http.delete(`${this.baseUrl}/${id}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, {headers: this.header})
   }
 
   getFreeVehicles(sDate: Date, eDate: Date): Observable<Vehicle[]>{
     this.setHeaders()
-    return this.http.get<Vehicle[]>(`${this.baseUrl}/${sDate}/${eDate}`,{headers: this.header})
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/freeVehicle/${sDate}/${eDate}`,{headers: this.header})
   }
 }
