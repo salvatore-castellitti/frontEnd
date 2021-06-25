@@ -34,6 +34,7 @@ export var tableConfig_Reservation = {
     {key: "startDate", label: "Start Date",},
     {key: "endDate", label: "End Date",},
     {key: "vehicle", label: "Vehicle",},
+    {key: "approved", label: "Approved",},
   ],
   order: order,
   search: search,

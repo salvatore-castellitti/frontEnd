@@ -81,31 +81,47 @@ export class FormAddComponent implements OnInit {
     }
   }
   addVehicle(){
-    this.vehicleRestService.createVehicle(this.model).subscribe(response => {
-      console.log(response)
-      this.router.navigateByUrl('/carPark');
+    if (this.model.houseProducer != null && this.model.model != null && this.model.type != null && this.model.licensePlate != null ){
+      this.vehicleRestService.createVehicle(this.model).subscribe(response => {
+        console.log(response)
+        this.router.navigateByUrl('/carPark');
+      })
+      }else{
+        this.err = 'Sorry, Can\'t crate this vehicle'
+      this.router.navigate(['form-add'])
+      }
 
-    })
+
   }
 
   addCustomer(){
-    this.customerRestService.updateUser(this.model).subscribe(response => {
-      console.log(response)
-      if(this.role=="ADMIN"){
-        this.router.navigateByUrl('/homepage');
-      }else{
-        this.router.navigateByUrl('/homepage-customer');
-      }
-    })
+    if(this.model.username != ""){
+      this.customerRestService.updateUser(this.model).subscribe(response => {
+        console.log(response)
+        if(this.role=="ADMIN"){
+          this.router.navigateByUrl('/homepage');
+        }else{
+          this.router.navigateByUrl('/homepage-customer');
+        }
+      })
+    }else{
+      this.err = 'Sorry you can\'t delete your Username'
+      this.router.navigate(['form-add'])
+    }
   }
 
   registerCustomer(){
-    this.customer = this.model
-    console.log(this.customer)
-    this.customerRestService.createUser(this.customer).subscribe(response =>{
-      console.log(response)
-      this.router.navigateByUrl('/homepage');
-    })
+    if (this.model.username != null && this.model.password != null){
+      this.customer = this.model
+      console.log(this.customer)
+      this.customerRestService.createUser(this.customer).subscribe(response =>{
+        console.log(response)
+        this.router.navigateByUrl('/homepage');
+      })
+    }else{
+      this.err = 'Sorry incorrect username or password'
+      this.router.navigate(['/form-add']);
+    }
   }
 
   addReservation(){
@@ -138,7 +154,7 @@ export class FormAddComponent implements OnInit {
     this.selectedStartDate = this.model.startDate
     this.selectedEndDate = this.model.endDate
 
-    if(startDate <= endDate && startDate >= currentDate && endDate>=currentDate){
+    if(startDate <= endDate && startDate >= currentDate && endDate>=currentDate || this.model.startDate != null || this.model.endDate != null){
       this.err=null
       this.controlDate = true
       this.getVehicles(startDate, endDate);

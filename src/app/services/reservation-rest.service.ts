@@ -30,18 +30,17 @@ export class ReservationRESTService {
   }
 
   getReservationList(): Observable<Reservation[]>{
-    this.setHeaders()
-    return this.http.get<Reservation[]>(`${this.baseUrl}/list`, {headers:this.header} );
+    return this.http.get<Reservation[]>(`${this.baseUrl}/list`);
   }
 
   createReservation(reservation: Reservation): Observable<Object>{
     this.setHeaders()
-    return this.http.post(`${this.baseUrl}/add`, reservation, {headers: this.header})
+    return this.http.post(`${this.baseUrl}/add`, reservation)
   }
 
   getReservationsCurrent(user): Observable<Reservation[]>{
     this.setHeaders()
-    return this.http.get<Reservation[]>(`${this.baseUrl}/list`, {headers: this.header})
+    return this.http.get<Reservation[]>(`${this.baseUrl}/list`)
       .pipe(map((res: any) => {
           return res.filter(post => {
             return post.user.id == user.id ;
@@ -52,11 +51,11 @@ export class ReservationRESTService {
 
   deleteReservation(id: number): Observable<Object>{
     this.setHeaders()
-    return this.http.delete(`${this.baseUrl}/delete/${id}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete/${id}`)
   }
 
   getReservationById(id: number): Observable<Reservation>{
     this.setHeaders()
-    return this.http.get<Reservation>(`${this.baseUrl}/get/${id}`, {headers: this.header})
+    return this.http.get<Reservation>(`${this.baseUrl}/get/${id}`)
   }
 }

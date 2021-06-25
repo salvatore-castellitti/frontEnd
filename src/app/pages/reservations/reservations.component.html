@@ -1,19 +1,22 @@
-<div *ngIf="err" class="alert alert-danger " role="alert">
+<div *ngIf="err" class="alert alert-danger d-flex flex-row justify-content-center" role="alert">
   {{err}}
 </div>
 
+<div *ngIf="message" class="alert alert-warning d-flex flex-row justify-content-center" role="alert">
+  {{message}}
+</div>
 <ng-container *ngIf="role === 'ADMIN'">
   <div class="d-flex flex-row justify-content-center">
     <h2> Reservations </h2>
   </div>
-  <br><br><br>
+  <img src="assets/img/Reservation.png" alt="car" class="center resize" >
   <app-custom-table [tableConfig]="tableConfig" [data]="reservations" (actionEvent)="getAction($event)"></app-custom-table>
 </ng-container>
 <ng-container *ngIf="role === 'CUSTOMER'">
   <div class="d-flex flex-row justify-content-center">
     <h2> Home </h2>
   </div>
-  <br><br><br>
+  <img src="assets/img/Reservation.png" alt="car" class="center resize" >
   <app-custom-table [tableConfig]="tableConfig_Customer" [data]="reservations" (actionEvent)="getAction($event)"></app-custom-table>
   <br>
   <div class="d-flex flex-row justify-content-center">

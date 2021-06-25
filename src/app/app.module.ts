@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import {DatePipe} from "@angular/common";
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/error/not-found/not-found.component';
 import { UnathorizedComponent } from './pages/error/unathorized/unathorized.component';
+import {CustomHttpInterceptor} from "./custom-http-interceptor";
 
 
 @NgModule({
@@ -47,7 +48,13 @@ import { UnathorizedComponent } from './pages/error/unathorized/unathorized.comp
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

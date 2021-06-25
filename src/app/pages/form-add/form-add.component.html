@@ -2,10 +2,18 @@
   {{err}}
 </div>
 <div *ngIf="typeForm==='vehicle'; else customerForm">
+  <div class="d-flex flex-row justify-content-center">
+    <h2> Vehicle Add </h2>
+  </div>
+  <img src="assets/img/Car.png" alt="car" class="center resize" >
   <app-custom-form [formConfig]="vehicleFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"> </app-custom-form>
 </div>
 <ng-template #customerForm>
   <div *ngIf="typeForm==='customer'; else reservationForm">
+    <div class="d-flex flex-row justify-content-center">
+      <h2> Profile </h2>
+    </div>
+    <img src="assets/img/Profile.png" alt="car" class="center resize" >
     <app-custom-form [formConfig]="customerFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
 </ng-template>
@@ -14,7 +22,7 @@
     <div class="d-flex flex-row justify-content-center">
       <h2> Reservation </h2>
     </div>
-    <br><br><br>
+    <img src="assets/img/Reservation.png" alt="car" class="center resize" >
     <app-custom-form [formConfig]="reservationFormCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>
 
@@ -44,7 +52,7 @@
   <div class="d-flex flex-row justify-content-center">
     <h2> Register </h2>
   </div>
-  <br><br><br>
+  <img src="assets/img/Profile.png" alt="car" class="center resize" >
   <div *ngIf="typeForm==='customer-register'">
     <app-custom-form [formConfig]="customerRegisterCamp" [model]="model" (formCompiledEvent)="receiveFormCompiled($event)"></app-custom-form>
   </div>

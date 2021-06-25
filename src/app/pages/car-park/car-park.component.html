@@ -1,8 +1,7 @@
 <div class="d-flex flex-row justify-content-center">
   <h2> Car Park</h2>
 </div>
-<br><br><br>
-
+<img src="assets/img/Car.png" alt="car" class="center resize" >
 <div *ngIf="role === 'ADMIN'; else customerRole">
   <app-custom-table [data]="vehicles" [tableConfig]="tableComponent_admin" (actionEvent)="getAction($event)"></app-custom-table>
   <br>

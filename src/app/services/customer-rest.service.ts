@@ -28,29 +28,24 @@ export class CustomerRESTService {
   }
 
   getUserList(): Observable<Customer[]>{
-    this.setHeaders()
-    return this.http.get<Customer[]>(`${this.baseUrl}/list`, {headers: this.header});
+    return this.http.get<Customer[]>(`${this.baseUrl}/list`);
   }
 
   createUser(customer: Customer): Observable<Object>{
-    this.setHeaders()
-    return this.http.post(`${this.baseUrl}/add`, customer, {headers: this.header})
+    return this.http.post(`${this.baseUrl}/add`, customer)
   }
 
   updateUser(customer: Customer): Observable<Object>{
-    this.setHeaders()
-    return this.http.post(`${this.baseUrl}/update`, customer, {headers: this.header})
+    return this.http.post(`${this.baseUrl}/update`, customer)
   }
 
 
   getUserById(id: number): Observable<Customer>{
-    this.setHeaders()
-    return this.http.get<Customer>(`${this.baseUrl}/get/${id}`, {headers: this.header})
+    return this.http.get<Customer>(`${this.baseUrl}/get/${id}`)
   }
 
   deleteUser(id: number): Observable<Object>{
-    this.setHeaders()
-    return this.http.delete(`${this.baseUrl}/delete/${id}`, {headers: this.header})
+    return this.http.delete(`${this.baseUrl}/delete/${id}`)
   }
 
   public get currentUserValue(): Customer{

@@ -23,6 +23,7 @@ export class ReservationsComponent implements OnInit {
   tableConfig_Customer = tableConfig_Reservation_Customer
   loggedUser
   err
+  message
 
 
   reservations: Reservation[] = [];
@@ -47,13 +48,21 @@ export class ReservationsComponent implements OnInit {
     let actionCrud = action[0];
     let reservation = action[1];
     console.log(reservation)
-    switch (actionCrud){
+    switch (actionCrud) {
       case 'Delete':
         this.removeReservation(reservation)
         break;
       case 'Update':
-        this.data.changeModelValue(reservation);
-        this.router.navigate(['/form-add'], { state: {type: 'reservation'} });
+        if (!reservation.approved) {
+          this.data.changeModelValue(reservation);
+          this.router.navigate(['/form-add'], {state: {type: 'reservation'}});
+        }else{
+          this.err = 'Sorry this reservation is already approved, contact an Admin'
+          this.router.navigate(['/reservations'])
+        }
+        break;
+      case 'Approve':
+        this.approveReservation(reservation)
         break;
     }
   }
@@ -85,16 +94,19 @@ export class ReservationsComponent implements OnInit {
     const id = reservation.id;
     this.reservationRestService.getReservationById(id).subscribe(reservation =>
       {
-        if(this.checkDateTime(reservation.startDate)){
+        if (this.role == 'CUSTOMER'){
+          if(this.checkDateTime(reservation.startDate) && reservation.approved == false){
+            this.reservationRestService.deleteReservation(id).subscribe(res => {
+                this.getReservationCurrentUSer(this.loggedUser)
+            })
+          }else{
+            this.err= 'Sorry, You can\'t delete this Reservation, contact an admin';
+            this.router.navigate(['/reservations'])
+          }
+        }else {
           this.reservationRestService.deleteReservation(id).subscribe(res => {
-            if(this.role == 'ADMIN'){
-              this.getReservations()
-            }else if(this.role == 'CUSTOMER'){
-              this.getReservationCurrentUSer(this.loggedUser)
-            }
+            this.getReservations()
           })
-        }else{
-          this.router.navigate(['/reservations'])
         }
       }
     )
@@ -106,14 +118,34 @@ export class ReservationsComponent implements OnInit {
     const currentDate = new Date()
 
     if(((+startDate.getTime() - +currentDate.getTime())/(1000*60*60*24)) <2){
-      this.err= 'Sorry, You can\'t delete this Reservation, contact an admin';
       return false
     }else{
       return true;
     }
+    }
 
 
+  approveReservation(reserv: Reservation) {
 
-
+    let reservToApprove
+    this.reservationRestService.getReservationById(reserv.id).subscribe(response => {
+      reservToApprove = response
+      reservToApprove.approved = true;
+      this.message = 'reservation # ' + reserv.id + ' approved';
+      this.reservationRestService.createReservation(reservToApprove).subscribe(response => console.log(response))
+      window.location.reload();
+    })
   }
 }
+
+// if(this.checkDateTime(reservation.startDate)){
+//   this.reservationRestService.deleteReservation(id).subscribe(res => {
+//     if(this.role == 'ADMIN'){
+//       this.getReservations()
+//     }else if(this.role == 'CUSTOMER'){
+//       this.getReservationCurrentUSer(this.loggedUser)
+//     }
+//   })
+// }else{
+//   this.router.navigate(['/reservations'])
+// }
