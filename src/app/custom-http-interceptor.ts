@@ -14,8 +14,9 @@ export class CustomHttpInterceptor implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if(req.url.indexOf('http://localhost:8080/api/v1/users/login') == 0 || req.url.indexOf('http://localhost:8080/api/v1/users/logout') == 0)
+    if(req.url.indexOf('http://localhost:8080/api/v1/users/login') == 0 || req.url.indexOf('http://localhost:8080/api/v1/users/logout') == 0){
       return next.handle(req)
+    }
 
       const reqWithAuth = req.clone({
         setHeaders: {
